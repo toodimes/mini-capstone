@@ -1,3 +1,25 @@
 // Place all the styles related to the Products controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+$primary-green: #214c20;
+$primary-red: #b72100;
+
+.container {
+  text-align: center;
+  .row {
+    text-align: left;
+    .col-md-4 {
+      img {
+        box-shadow: 5px 5px $primary-green;
+      }
+      h2 {
+        color: $primary-green;
+      }
+      p {
+        font-size: 1.25em;
+        padding: 5px;
+        color: $primary-red;
+      }
+    }
+  }
+}
