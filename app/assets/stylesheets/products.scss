@@ -11,6 +11,8 @@ $primary-red: #b72100;
     .col-md-4 {
       img {
         box-shadow: 5px 5px $primary-green;
+        width: 200px;
+        height: 200px;
       }
       h2 {
         color: $primary-green;
