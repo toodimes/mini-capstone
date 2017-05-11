@@ -1,10 +1,11 @@
 <div class="container center-block">
   <h1>All the available products!</h1>
+    <h3><a href="/products/new">Click here to add a new item.</a></h3>
     <% @products.each_slice(3) do |products| %>
       <div class="row">
         <% products.each do |product| %>
             <div class="col-md-4">
-              <h2><%= product.name %></h2>
+              <a href="/products/<%= product.id %>"><h2> <%= product.name %></h2></a>
               <img src=<%= product.image %>>
               <p>Price: $<%= product.price %></p>
               <p>Description: <%= product.description %></p>
@@ -12,11 +13,7 @@
             </div>
         <% end %>
       </div>
-    <% end %>
-          
-  <<!-- div class="row">
-    <%# @products.each do |product| %>
-    <%# end %>  
+    <% end %> 
     </div>
-  </div> -->
+  </div> 
 </div>

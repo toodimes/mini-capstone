@@ -8,7 +8,7 @@ $primary-red: #b72100;
   text-align: center;
   .row {
     text-align: left;
-    .col-md-4 {
+    .col-md-4, .col-md-6, .col-md-3, .col-md-10 {
       img {
         box-shadow: 5px 5px $primary-green;
         width: 200px;
@@ -21,6 +21,16 @@ $primary-red: #b72100;
         font-size: 1.25em;
         padding: 5px;
         color: $primary-red;
+      }
+      .form-group {
+        .col-md-10 {
+          input {
+            width: 100%;
+          }
+        }
+      }
+      .btn {
+        margin-top: 15px;
       }
     }
   }

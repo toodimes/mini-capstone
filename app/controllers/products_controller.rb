@@ -1,22 +1,33 @@
 class ProductsController < ApplicationController
 
-  def product_method
-
+  def index
     @products = Product.all
-
-    render "product_view.html.erb"
+    render "index.html.erb"
   end
 
-  def new_product_method
-    render "create_new_product.html.erb"
+  def new
+    render "new.html.erb"
   end
 
-  def new_product_result_method
+  def create
     Product.create(name: params[:name], price: params[:price], image: params[:image], description: params[:description], quantity: params[:quantity])
-
     @products = Product.all
+    render "index.html.erb"
+  end
 
-    render "product_view.html.erb"
+  def show
+    @product = Product.find_by(id: params[:id])
+    render "show.html.erb"
+  end
+
+  def edit
+    @product = Product.find_by(id: params[:id])
+    render "edit.html.erb"
+  end
+
+  def update
+    @product = Product.find_by(id: params[:id])
+
   end
 
 end
