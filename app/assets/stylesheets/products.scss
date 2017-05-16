@@ -4,15 +4,23 @@
 $primary-green: #214c20;
 $primary-red: #b72100;
 
-.container {
+//Flash Message CSS
+h2 {
+  text-align: center;
+}
+
+.container-fluid, .container {
   text-align: center;
   .row {
     text-align: left;
-    .col-md-4, .col-md-6, .col-md-3, .col-md-10 {
-      img {
-        box-shadow: 5px 5px $primary-green;
-        width: 200px;
-        height: 200px;
+    .col-md-4, .col-md-6, .col-md-3 {
+      margin: 0 auto;
+      .well {
+        img {
+          box-shadow: 3px 5px $primary-green;
+          width: 100%;
+          height: auto;
+        }
       }
       h2 {
         color: $primary-green;
@@ -22,12 +30,15 @@ $primary-red: #b72100;
         padding: 5px;
         color: $primary-red;
       }
-      .form-group {
-        .col-md-10 {
-          input {
-            width: 100%;
-          }
-        }
+      button {
+        width: 100%;
+      }
+      a {
+        margin: 5px;
+      }
+      input {
+        width: 100%;
+        margin: 5px;
       }
       .btn {
         margin-top: 15px;

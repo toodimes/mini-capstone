@@ -2,14 +2,17 @@
   <h1>All the available products!</h1>
     <h3><a href="/products/new">Click here to add a new item.</a></h3>
     <% @products.each_slice(3) do |products| %>
-      <div class="row">
+      <div class="row equal">
         <% products.each do |product| %>
             <div class="col-md-4">
-              <a href="/products/<%= product.id %>"><h2> <%= product.name %></h2></a>
-              <img src=<%= product.image %>>
-              <p>Price: $<%= product.price %></p>
-              <p>Description: <%= product.description %></p>
-              <p>Quantity Available: <%= product.quantity %></p>
+              <div class="well">
+                <a href="/products/<%= product.id %>"><h2> <%= product.name %></h2></a>
+                <img src=<%= product.image %>>
+                <p>Price: $<%= product.price %></p>
+                <p>Description: <%= product.description %></p>
+                <p>Quantity Available: <%= product.quantity %></p>
+                <a href="/products/<%= product.id %>/edit"><button type="btn-primary" class="btn btn-primary">Edit Product</button></a>
+              </div>
             </div>
         <% end %>
       </div>

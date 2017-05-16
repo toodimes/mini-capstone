@@ -10,9 +10,9 @@ class ProductsController < ApplicationController
   end
 
   def create
-    Product.create(name: params[:name], price: params[:price], image: params[:image], description: params[:description], quantity: params[:quantity])
-    @products = Product.all
-    render "index.html.erb"
+    product = Product.create(name: params[:name], price: params[:price], image: params[:image], description: params[:description], quantity: params[:quantity])
+    flash[:success] = "#{product.name} has been created! :)"
+    redirect_to "/products/#{product.id}"
   end
 
   def show
@@ -26,8 +26,17 @@ class ProductsController < ApplicationController
   end
 
   def update
-    @product = Product.find_by(id: params[:id])
+    product = Product.find_by(id: params[:id])
+    product.update(name: params[:name], price: params[:price], image: params[:image], description: params[:description], quantity: params[:quantity])
+    flash[:info] = "#{product.name} has been updated."
+    redirect_to "/products/#{product.id}"
+  end
 
+  def destroy
+    product = Product.find_by(id: params[:id])
+    product.destroy
+    flash[:danger] = "Your product has been deleted."
+    redirect_to "/products"
   end
 
 end
