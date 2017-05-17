@@ -10,13 +10,14 @@ class ProductsController < ApplicationController
   end
 
   def create
-    product = Product.create(name: params[:name], price: params[:price], image: params[:image], description: params[:description], quantity: params[:quantity])
+    product = Product.create(name: params[:name], price: params[:price], image: params[:image], description: params[:description], quantity: params[:quantity], rating: params[:rating])
     flash[:success] = "#{product.name} has been created! :)"
     redirect_to "/products/#{product.id}"
   end
 
   def show
     @product = Product.find_by(id: params[:id])
+    # @blank_stars = 5 - @product.rating.to_i
     render "show.html.erb"
   end
 
@@ -27,7 +28,7 @@ class ProductsController < ApplicationController
 
   def update
     product = Product.find_by(id: params[:id])
-    product.update(name: params[:name], price: params[:price], image: params[:image], description: params[:description], quantity: params[:quantity])
+    product.update(name: params[:name], price: params[:price], image: params[:image], description: params[:description], quantity: params[:quantity], rating: params[:rating])
     flash[:info] = "#{product.name} has been updated."
     redirect_to "/products/#{product.id}"
   end

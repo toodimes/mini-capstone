@@ -17,31 +17,37 @@ h2 {
       margin: 0 auto;
       .well {
         img {
-          box-shadow: 3px 5px $primary-green;
+          // box-shadow: 3px 5px $primary-green;
           width: 100%;
           height: auto;
         }
-      }
-      h2 {
-        color: $primary-green;
-      }
-      p {
-        font-size: 1.25em;
-        padding: 5px;
-        color: $primary-red;
-      }
-      button {
-        width: 100%;
-      }
-      a {
-        margin: 5px;
-      }
-      input {
-        width: 100%;
-        margin: 5px;
-      }
-      .btn {
-        margin-top: 15px;
+        textarea {
+          width: 100%;
+        }
+        h2 {
+          color: $primary-green;
+        }
+        p {
+          font-size: 1.25em;
+          padding: 5px;
+          color: black;
+        }
+        span {
+          color: $primary-red;
+        }
+        button {
+          width: 100%;
+        }
+        a {
+          margin: 5px;
+        }
+        input {
+          width: 100%;
+          margin: 5px;
+        }
+        .btn {
+          margin-top: 15px;
+        }
       }
     }
   }

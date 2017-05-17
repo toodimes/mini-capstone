@@ -5,7 +5,18 @@
       <div class="well">
         <h1><%= @product.name %></h1>
         <p>Description: <%= @product.description %></p>
-        <p>Current Price: $<%= @product.price %></p>
+        <p>Rating: 
+          <% @product.rating.to_i.times do  %>
+            <span class="glyphicon glyphicon-star"></span>
+          <% end %>
+          <% @product.blank_stars.to_i.times do %>
+            <span class="glyphicon glyphicon-star-empty"></span>
+          <% end %>
+        </p>
+        <p>Current Price: <span><%= number_to_currency(@product.price) %></span></p>
+        <p>Tax: <span><%= number_to_currency(@product.tax) %></span></p>
+        <p>Total: <span><%= number_to_currency(@product.total) %></span></p>
+        <h3><%= @product.sale_message %></h3>
         <p>Here is a picture of it:</p>
         <img src="<%= @product.image %>" alt="<%= @product.description %>">
         <br />

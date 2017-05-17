@@ -8,7 +8,15 @@
               <div class="well">
                 <a href="/products/<%= product.id %>"><h2> <%= product.name %></h2></a>
                 <img src=<%= product.image %>>
-                <p>Price: $<%= product.price %></p>
+                <p>Price: <span><%= number_to_currency(product.price) %></span></p>
+                <p>Rating: 
+                  <% product.rating.to_i.times do  %>
+                    <span class="glyphicon glyphicon-star"></span>
+                  <% end %>
+                  <% product.blank_stars.to_i.times do %>
+                    <span class="glyphicon glyphicon-star-empty"></span>
+                  <% end %>
+                </p>
                 <p>Description: <%= product.description %></p>
                 <p>Quantity Available: <%= product.quantity %></p>
                 <a href="/products/<%= product.id %>/edit"><button type="btn-primary" class="btn btn-primary">Edit Product</button></a>
