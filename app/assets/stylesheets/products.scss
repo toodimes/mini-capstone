@@ -11,11 +11,35 @@ h2 {
 
 .container-fluid, .container {
   text-align: center;
+  .bottom_bar {
+    padding-top: 35px;
+    margin-bottom: 25px;
+    h2 {
+      text-align: center;
+    }
+    .col-xs-4, .col-sm-2, .col-md-2, .col-lg-2 {
+      
+      .bottom_well {
+        background: url('binding_light.png');
+        height: 150px;
+        .img-rounded {
+          width: 75px;
+          height: 75px;
+          float: right;
+          margin-top: 20px;
+        }
+        span {
+          color: $primary-red;
+        }
+      }
+    }
+  }
   .row {
     text-align: left;
     .col-md-4, .col-md-6, .col-md-3 {
       margin: 0 auto;
-      .well {
+      .show_well {
+        background: url('paisley.png');
         img {
           // box-shadow: 3px 5px $primary-green;
           width: 100%;

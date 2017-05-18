@@ -1,7 +1,7 @@
 class Product < ApplicationRecord
   
   def sale_message
-    if price.to_f < 2
+    if price < 2
       message = "Discount Item!"
     else
       message = "Everyday Value!!"
@@ -9,15 +9,19 @@ class Product < ApplicationRecord
   end
 
   def tax
-    price.to_f * 0.09
+    price * 0.09
   end
 
   def total
-    price.to_f + tax
+    price + tax
   end
 
   def blank_stars
     5 - rating.to_i
+  end
+
+  def self.search
+    Product.where(name: params[:search])
   end
 
 end

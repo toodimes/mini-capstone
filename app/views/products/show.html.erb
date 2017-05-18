@@ -2,14 +2,14 @@
   <div class="row">
     <div class="col-md-3"></div>
     <div class="col-md-6">
-      <div class="well">
+      <div class="show_well well">
         <h1><%= @product.name %></h1>
         <p>Description: <%= @product.description %></p>
         <p>Rating: 
           <% @product.rating.to_i.times do  %>
             <span class="glyphicon glyphicon-star"></span>
           <% end %>
-          <% @product.blank_stars.to_i.times do %>
+          <% @product.blank_stars.times do %>
             <span class="glyphicon glyphicon-star-empty"></span>
           <% end %>
         </p>
@@ -30,6 +30,26 @@
       </div>
     </div>
     <div class="col-md-3"></div>
+  </div>
+</div>
+<div class="container-fluid">
+  <div class="row bottom_bar">
+    <h2>Some Other Products You May Enjoy</h2>
+    <% @random_products.each do |product| %>
+      <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2">
+        <div class="well bottom_well">
+          <img class="img-rounded" src="<%= product.image %>">
+          <p><%= product.name %></p>
+          <p><% product.rating.to_i.times do  %>
+              <span class="glyphicon glyphicon-star"></span>
+            <% end %>
+            <% product.blank_stars.times do %>
+              <span class="glyphicon glyphicon-star-empty"></span>
+            <% end %></p>
+          <p><%= number_to_currency(product.price) %></p>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
 

@@ -1,7 +1,19 @@
 class ProductsController < ApplicationController
 
+  # @@random_item = Product.all.shuffle[0]
+
   def index
-    @products = Product.all
+    if params[:sort] == "lowest"
+      @products = Product.order(price: :asc)
+    elsif params[:sort] == "highest"
+      @products = Product.order(price: :desc)
+    elsif params[:sort] == "discount"
+      @products = Product.where("price <= ?", 10)
+    else
+      @products = Product.all
+    end
+
+
     render "index.html.erb"
   end
 
@@ -16,9 +28,24 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.find_by(id: params[:id])
-    # @blank_stars = 5 - @product.rating.to_i
+    if params[:id] == "random"
+      @product = Product.all.shuffle[0]
+      # redirect_to "/products/#{product.id}"
+    else
+      @product = Product.find_by(id: params[:id])
+    end
+    @random_products = Product.all.sample(6)
+      
+    # 6.times do 
+    #   @random_products << Product.all.shuffle[count]
+    #   count += 1
+    # end
     render "show.html.erb"
+  end
+
+  def search
+    @products = Product.where("name ILIKE ?", "%#{params[:search]}%")
+    render "index.html.erb"
   end
 
   def edit
