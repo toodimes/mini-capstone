@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="col-md-3"></div>
+    <!-- <div class="col-md-3"></div> -->
     <div class="col-md-6">
       <div class="show_well well">
         <h1><%= @product.name %></h1>
@@ -17,11 +17,57 @@
         <p>Tax: <span><%= number_to_currency(@product.tax) %></span></p>
         <p>Total: <span><%= number_to_currency(@product.total) %></span></p>
         <h3><%= @product.sale_message %></h3>
-        <p>Here is a picture of it:</p>
-        <img src="<%= @product.image %>" alt="<%= @product.description %>">
+        <!-- <p>Here is a picture of it:</p> -->
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+          <!-- Indicators -->
+        <!--   <ol class="carousel-indicators">
+            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+            <li data-target="#myCarousel" data-slide-to="1"></li>
+            <li data-target="#myCarousel" data-slide-to="2"></li>
+          </ol> -->
+
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner">
+            <% @product.images.each do |image| %>
+              <div class="item <%= 'active' if image == @product.images.first %>">
+                <img src="<%= image.url %>" alt="">
+              </div>
+            <% end %>
+            <!-- <div class="item active">
+              <img src="la.jpg" alt="Los Angeles">
+            </div>
+
+            <div class="item">
+              <img src="chicago.jpg" alt="Chicago">
+            </div>
+
+            <div class="item">
+              <img src="ny.jpg" alt="New York">
+            </div> -->
+          </div>
+
+          <!-- Left and right controls -->
+          <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="right carousel-control" href="#myCarousel" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+
+
+
+
+
+
+
+
+
+
+        <!-- <img src="<%# @product.image %>" alt="<%# @product.description %>"> -->
         <br />
-        <a href="/products/<%= @product.id %>/edit"><button type="btn-primary" class="btn btn-primary">Edit Product</button></a>
-        <%= button_to "Delete Product", "/products/#{@product.id}", method: :delete, data: { confirm: "Are you sure?"}, class: "btn btn-danger" %>
         <a href="/products"><button type="btn-primary" class="btn btn-success">All products</button></a>
         <%# form_tag "/products/#{@product.id}", method: :delete, data: { confirm: "Are you sure?"} do %>
           <!-- <input type="submit" value="Delete Product"> -->
@@ -29,16 +75,29 @@
         <%# link_to "Delete Product", "/products/#{@product.id}", method: :delete, data: { confirm: "Are you sure?"} %>
       </div>
     </div>
-    <div class="col-md-3"></div>
+    <div class="col-md-6">
+      <div class="well show_well">
+        <h1><%= @product.supplier.name %></h1>
+        <p>Email: <a href="<%= mail_to("#{@product.supplier.email}", "#{@product.supplier.name} Email") %><%# @product.supplier.email %></p>
+        <p>Phone Number: <%= @product.supplier.phone %></p>
+        <a href="/products/<%= @product.id %>/edit"><button type="btn-primary" class="btn btn-primary">Edit Product</button></a>
+        <%= button_to "Delete Product", "/products/#{@product.id}", method: :delete, data: { confirm: "Are you sure?"}, class: "btn btn-danger" %>
+      </div>
+    </div>
   </div>
 </div>
+
+<!-- <div class="row supplier_row">
+  
+</div> -->
+
 <div class="container-fluid">
   <div class="row bottom_bar">
     <h2>Some Other Products You May Enjoy</h2>
     <% @random_products.each do |product| %>
       <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2">
         <div class="well bottom_well">
-          <img class="img-rounded" src="<%= product.image %>">
+          <img class="img-rounded" src="<%= product.images.first.url %>">
           <p><%= product.name %></p>
           <p><% product.rating.to_i.times do  %>
               <span class="glyphicon glyphicon-star"></span>

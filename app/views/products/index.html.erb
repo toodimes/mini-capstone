@@ -7,7 +7,7 @@
             <div class="col-md-4">
               <div class="well show_well">
                 <a href="/products/<%= product.id %>"><h2> <%= product.name %></h2></a>
-                <img src=<%= product.image %>>
+                <img src="<%= product.images.first.url %>">
                 <p>Price: <span><%= number_to_currency(product.price) %></span></p>
                 <p>Rating: 
                   <% product.rating.to_i.times do  %>

@@ -39,6 +39,10 @@ h2 {
     .col-md-4, .col-md-6, .col-md-3 {
       margin: 0 auto;
       .show_well {
+        .carouselExampleControls {
+          width: 100%;
+          height: auto;
+        }
         background: url('paisley.png');
         img {
           // box-shadow: 3px 5px $primary-green;

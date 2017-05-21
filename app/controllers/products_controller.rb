@@ -18,11 +18,12 @@ class ProductsController < ApplicationController
   end
 
   def new
+    @suppliers = Supplier.all
     render "new.html.erb"
   end
 
   def create
-    product = Product.create(name: params[:name], price: params[:price], image: params[:image], description: params[:description], quantity: params[:quantity], rating: params[:rating])
+    product = Product.create(name: params[:name], price: params[:price], image: params[:image], description: params[:description], quantity: params[:quantity], rating: params[:rating], supplier_id: params[:supplier_id])
     flash[:success] = "#{product.name} has been created! :)"
     redirect_to "/products/#{product.id}"
   end
@@ -50,12 +51,13 @@ class ProductsController < ApplicationController
 
   def edit
     @product = Product.find_by(id: params[:id])
+    @suppliers = Supplier.all
     render "edit.html.erb"
   end
 
   def update
     product = Product.find_by(id: params[:id])
-    product.update(name: params[:name], price: params[:price], image: params[:image], description: params[:description], quantity: params[:quantity], rating: params[:rating])
+    product.update(name: params[:name], price: params[:price], image: params[:image], description: params[:description], quantity: params[:quantity], rating: params[:rating], supplier_id: params[:supplier_id])
     flash[:info] = "#{product.name} has been updated."
     redirect_to "/products/#{product.id}"
   end
