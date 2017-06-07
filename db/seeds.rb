@@ -15,10 +15,12 @@
 
 # end
 # Image.destroy_all
-Product.all.each do |product|
-  # product.update()
-  Image.create(product_id: product.id, url: "http://i.imgur.com/sygIm33.jpg")
-end
+# 2.times do 
+#   Product.all.each do |product|
+#     # product.update()
+#     Image.create(product_id: product.id, url: "http://lorempixel.com/#{Faker::Number.between(600,700)}/#{Faker::Number.between(400,500)}")
+#   end
+# end
 # 40.times do  /
 # 120.times do
 #   Image.create(url: "http://imgur.com/PwqHArq", product_id: Product.all.sample.id)
@@ -26,6 +28,9 @@ end
 # Image.all.each do |image|
 #   image.update(product_id: Product.all.sample.id)
 # end
-
+Product.all.each do |product|
+  CategorizedProduct.create(product_id: product.id, category_id: Category.pluck(:id).sample)
+  CategorizedProduct.create(product_id: product.id, category_id: Category.pluck(:id).sample)
+end
 
 puts "Done!"

@@ -4,6 +4,11 @@
     <div class="col-md-6">
       <div class="show_well well">
         <h1><%= @product.name %></h1>
+        <p>Categories:
+          <% @product.categories.each do |category| %>
+            <a href="/products/?category=<%= category.name %>"><%= category.name.capitalize %></a>
+          <% end %>
+        </p>
         <p>Description: <%= @product.description %></p>
         <p>Rating: 
           <% @product.rating.to_i.times do  %>
@@ -14,18 +19,20 @@
           <% end %>
         </p>
         <p>Current Price: <span><%= number_to_currency(@product.price) %></span></p>
-        <p>Tax: <span><%= number_to_currency(@product.tax) %></span></p>
-        <p>Total: <span><%= number_to_currency(@product.total) %></span></p>
+        <!-- <p>Tax: <span><%= number_to_currency(@product.tax) %></span></p> -->
+        <!-- <p>Total: <span><%= number_to_currency(@product.total) %></span></p> -->
         <h3><%= @product.sale_message %></h3>
+        <% if current_user %>
+          <p>Purchase:</p>
+            <%= form_tag "/cart", method: :post do %>
+              <p>Quantity: <input type="text" name="quantity"></p>
+              <input hidden type="text" name="product_id" value="<%= @product.id %>">
+              <input type="submit" value="Add To Cart">
+            <% end %>
+        <% end %>
         <!-- <p>Here is a picture of it:</p> -->
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
-          <!-- Indicators -->
-        <!--   <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-          </ol> -->
-
+        <% if @product.images.any? %>
           <!-- Wrapper for slides -->
           <div class="carousel-inner">
             <% @product.images.each do |image| %>
@@ -33,17 +40,6 @@
                 <img src="<%= image.url %>" alt="">
               </div>
             <% end %>
-            <!-- <div class="item active">
-              <img src="la.jpg" alt="Los Angeles">
-            </div>
-
-            <div class="item">
-              <img src="chicago.jpg" alt="Chicago">
-            </div>
-
-            <div class="item">
-              <img src="ny.jpg" alt="New York">
-            </div> -->
           </div>
 
           <!-- Left and right controls -->
@@ -56,16 +52,7 @@
             <span class="sr-only">Next</span>
           </a>
         </div>
-
-
-
-
-
-
-
-
-
-
+      <% end %>
         <!-- <img src="<%# @product.image %>" alt="<%# @product.description %>"> -->
         <br />
         <a href="/products"><button type="btn-primary" class="btn btn-success">All products</button></a>
@@ -75,15 +62,18 @@
         <%# link_to "Delete Product", "/products/#{@product.id}", method: :delete, data: { confirm: "Are you sure?"} %>
       </div>
     </div>
-    <div class="col-md-6">
-      <div class="well show_well">
-        <h1><%= @product.supplier.name %></h1>
-        <p>Email: <a href="<%= mail_to("#{@product.supplier.email}", "#{@product.supplier.name} Email") %><%# @product.supplier.email %></p>
-        <p>Phone Number: <%= @product.supplier.phone %></p>
-        <a href="/products/<%= @product.id %>/edit"><button type="btn-primary" class="btn btn-primary">Edit Product</button></a>
-        <%= button_to "Delete Product", "/products/#{@product.id}", method: :delete, data: { confirm: "Are you sure?"}, class: "btn btn-danger" %>
+    <% if current_user && current_user.admin %>
+      <div class="col-md-6">
+        <div class="well show_well">
+          <h1>Supplier:</h1>
+          <h3><%= @product.supplier.name %></h3>
+          <p>Email: <a href="<%= mail_to("#{@product.supplier.email}", "#{@product.supplier.name} Email") %><%# @product.supplier.email %></p>
+          <p>Phone Number: <%= @product.supplier.phone %></p>
+          <a href="/products/<%= @product.id %>/edit"><button type="btn-primary" class="btn btn-primary">Edit Product</button></a>
+          <%= button_to "Delete Product", "/products/#{@product.id}", method: :delete, data: { confirm: "Are you sure?"}, class: "btn btn-danger" %>
+        </div>
       </div>
-    </div>
+    <% end %>
   </div>
 </div>
 
@@ -97,7 +87,9 @@
     <% @random_products.each do |product| %>
       <div class="col-xs-4 col-sm-2 col-md-2 col-lg-2">
         <div class="well bottom_well">
-          <img class="img-rounded" src="<%= product.images.first.url %>">
+          <% if product.images.any? %>
+            <img class="img-rounded" src="<%= product.images.first.url %>">
+          <% end %>
           <p><%= product.name %></p>
           <p><% product.rating.to_i.times do  %>
               <span class="glyphicon glyphicon-star"></span>

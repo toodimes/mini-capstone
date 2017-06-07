@@ -1,0 +1,6 @@
+<% if @category && @category.errors.any? %>
+  <h3><%= pluralize(@category.errors.count, "error") %> stopped this category from being added:</h3>
+  <% @category.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+  <% end %>
+<% end %>

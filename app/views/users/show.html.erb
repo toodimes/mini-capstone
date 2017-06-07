@@ -1,0 +1,7 @@
+<h1>The show page for <%= current_user.name %></h1>
+<ol>
+  
+  <% @orders.each do |order| %>
+    <li>Item: <%= order.product.name %> || Total: <%= number_to_currency(order.total) %></li>  
+  <% end %>
+</ol>

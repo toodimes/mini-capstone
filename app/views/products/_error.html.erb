@@ -1,0 +1,6 @@
+<% if @product && @product.errors.any? %>
+  <h3><%= pluralize(@product.errors.count, "error") %> stopped this product from being added:</h3>
+  <% @product.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+  <% end %>
+<% end %>

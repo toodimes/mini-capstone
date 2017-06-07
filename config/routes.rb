@@ -16,5 +16,36 @@ Rails.application.routes.draw do
 
   # get "/suppliers" => 'suppliers#index'
 
+  ########ABOVE IS SUPPLIER ROUTES########
+  ########BELOW IS USER ROUTES########
+  # get "/index" => "users#index"
+  get "/signup", to: 'users#new'
+  post "/users", to: 'users#create'
+  get "/users/orders" => 'users#show'
+
+  #log in /log out routes
+  get "/login" => "sessions#new"
+  post "/login" => "sessions#create"
+
+  get "/logout" => "sessions#destroy"
+
+  #order routes
+  get "/orders" => "orders#index"
+  post "/orders" => "orders#create"
+  get "/orders/:id" => "orders#show"
+
+  #categories routes
+  get "/categories" => "categories#index"
+  get "/categories/new" => "categories#new"
+  post "/categories" => "categories#create"
+  delete "/categories/:id" => "categories#destroy"
+
+  #Carted Products Routes
+  get "/cart" => "carted_products#index"
+  post "/cart" => "carted_products#create"
+  get "/cart/:id/remove" => "carted_products#update"
+
+  patch "/cart/:id/edit" => "carted_products#edit"
+  
 
 end

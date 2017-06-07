@@ -58,6 +58,16 @@
           <ul class="nav navbar-nav navbar-right">
             <!-- <li><a href="#">Link</a></li>-->
             <li class="<%= 'active' if request.path == '/products' %>"><a href="/products">Home</a></li>
+          <% if request.path == "/products" || request.path == "/" %>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Filter By <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <% Category.all.each do |category| %>
+                  <li class=""><a href="/products/?category=<%= category.name %>"><%= category.name.capitalize %></a></li>
+                <% end %>
+              </ul>
+            </li>
+          <% end %>
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Sort By <span class="caret"></span></a>
               <ul class="dropdown-menu">
@@ -66,21 +76,50 @@
                 <li class=""><a href="/products/?sort=discount">Discounted Items</a></li>
                  <li class=""><a href="/products/random">Random Item</a></li>
                 <li role="separator" class="divider"></li>
+                  <% if current_user && current_user.admin %>
+                    <li><a href="/products/new">Add a Product</a></li>
+                  <% end %>
                 <!-- <li><a href="#">Separated link</a></li>--> -->
               </ul>
             </li>
-            <li class="<%= 'active' if request.path.include?('new') %>"><a href="/products/new">Add Product</a></li>
+            <% if current_user %>
+              <li class=""><a href="/logout">Log Out</a></li>
+            <% else %>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Log-In<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li class=""><a href="/login">Log In</a></li>
+                    <li class=""><a href="/signup">Sign Up</a></li>
+                </ul>
+              </li>
+            <% end %>
+            <% if current_user %>
+              <li class=""><a href="/orders"><%= current_user.name %></a></li>
+              <li class="">
+                <a href="/cart">
+                  <span class="glyphicon glyphicon-shopping-cart">
+                  </span>
+                  <% if CartedProduct.where(user_id: current_user.id, status: "carted").count > 0 %>
+                  <span class="badge"><%= CartedProduct.where(user_id: current_user.id, status: "carted").count %></span>
+                  <% end %>
+                </a>
+              </li>
+            <% end %>
+            <!-- <li class="<%= 'active' if request.path.include?('new') %>"><a href="/products/new">Add Product</a></li> -->
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->
     </nav>
-    
-      <% flash.each do |name, message| %>
-        <div class="alert alert-<%= name %> alert-dismissable" role="alert">
-          <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h3><%= message %></h3>
-        </div>
-      <% end %>
+    <div class="container-fluid text-center">
+      <!-- <div class="row">         -->
+        <% flash.each do |name, message| %>
+          <div class="alert alert-<%= name %> alert-dismissable" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h3><%= message %></h3>
+          </div>
+        <% end %>
+      <!-- </div> -->
+    </div>
       <%= yield %>
 
 

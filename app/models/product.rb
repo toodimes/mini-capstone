@@ -1,9 +1,19 @@
 class Product < ApplicationRecord
   belongs_to :supplier
   has_many :images
+  has_many :categorized_products
+  has_many :categories, through: :categorized_products
+  has_many :carted_products
+  has_many :orders, through: :carted_products
+
+  #Validations
+  validates :name, :price, :description, :quantity, :in_stock, :rating, :presence => true
+  validates :price, :quantity, :numericality => true
+  validates :quantity, :numericality => { :only_integer => true }
+  validates :description, length: { :maximum => 500 }
   
   def sale_message
-    if price < 2
+    if price < 10
       message = "Discount Item!"
     else
       message = "Everyday Value!!"

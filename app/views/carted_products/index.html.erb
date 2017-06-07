@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-9">
+      <div class="well show_well">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h1>Shopping Cart for <%= current_user.name %></h1>
+          </div>
+        </div>
+        <div class="panel-body">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Change Quantity</th>
+                  <th>Remove</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @carted_products.each do |item| %>
+                  <tr>
+                    <td><a href="/products/<%= item.product_id %>"><%= item.product.name %></a></td>
+                    <td><%= number_to_currency(item.product.price) %></td>
+                    <%= form_tag "/cart/#{item.id}/edit", method: :patch do %>
+                      <td><input type="text" name="quantity" value="<%= item.quantity %>"></td>
+                      <td><input class="btn btn-info" type="submit" value="Change"></td>
+                    <% end %>
+                    <td><a href="/cart/<%= item.product.id %>/remove"><span class="glyphicon glyphicon-remove-sign"></span></a></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+            <%= button_to "Checkout", "/orders", method: :post, class: "btn btn-lg btn-success pull-right" %>
+            <%= button_to "Update", "/orders", method: :patch, class: "btn btn-lg btn-primary pull-right", style: "margin-right: 10px" %>
+            
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

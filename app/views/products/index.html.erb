@@ -1,6 +1,9 @@
 <div class="container center-block">
   <h1>All the available products!</h1>
-    <h3><a href="/products/new">Click here to add a new item.</a></h3>
+  <h2>You have been to this page <%= pluralize(@visit_count, "time") %>.</h2>
+    <% if current_user %>
+      <h3><a href="/products/new">Click here to add a new item.</a></h3>
+    <% end %>
     <% @products.each_slice(3) do |products| %>
       <div class="row equal">
         <% products.each do |product| %>
@@ -19,7 +22,9 @@
                 </p>
                 <p>Description: <%= product.description %></p>
                 <p>Quantity Available: <%= product.quantity %></p>
-                <a href="/products/<%= product.id %>/edit"><button type="btn-primary" class="btn btn-primary">Edit Product</button></a>
+                <% if current_user && current_user.admin %>
+                  <a href="/products/<%= product.id %>/edit"><button type="btn-primary" class="btn btn-primary">Edit Product</button></a>
+                <% end %>
               </div>
             </div>
         <% end %>
